@@ -75,6 +75,7 @@
               "CodeQuality",
               "Compile",
               "Lint",
+              "Pack",
               "Restore",
               "Test"
             ]
@@ -94,6 +95,7 @@
               "CodeQuality",
               "Compile",
               "Lint",
+              "Pack",
               "Restore",
               "Test"
             ]
