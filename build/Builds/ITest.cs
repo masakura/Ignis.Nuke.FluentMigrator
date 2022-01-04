@@ -18,7 +18,7 @@ interface ITest : ICompile
             DotNetTest(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
-                .AddLoggers($"junit;{JUnitFile};MethodFormat=Class;FailureBodyFormat=Verbose")
+                .AddLoggers($"junit;LogFilePath={JUnitFile};MethodFormat=Class;FailureBodyFormat=Verbose")
                 .EnableNoBuild()
                 .EnableNoRestore());
         });
