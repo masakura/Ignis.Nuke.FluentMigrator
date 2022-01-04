@@ -18,9 +18,9 @@ public sealed class FluentMigratorTasksTest
     public void TestFluentMigratorMigrateUp()
     {
         FluentMigratorTasks.FluentMigratorMigrateUp(s => s
+            .SetConnectionString(_database.ConnectionString)
             .AddConfigureRunner(rb => rb
                 .AddSQLite()
-                .WithGlobalConnectionString(_database.ConnectionString)
                 .ScanIn(GetType().Assembly).For.Migrations()));
 
         using var connection = _database.Open();
