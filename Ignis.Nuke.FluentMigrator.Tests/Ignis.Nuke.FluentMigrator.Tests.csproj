@@ -10,8 +10,11 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Dapper" Version="2.0.123" />
         <PackageReference Include="JunitXml.TestLogger" Version="3.0.110" />
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="6.0.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="PowerAssert" Version="1.0.87" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
