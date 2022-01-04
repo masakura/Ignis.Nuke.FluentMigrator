@@ -1,5 +1,5 @@
 ﻿using FluentMigrator.Runner;
-using Microsoft.Data.Sqlite;
+using Ignis.Nuke.FluentMigrator.Data;
 using PowerAssert;
 using Xunit;
 
@@ -7,21 +7,27 @@ namespace Ignis.Nuke.FluentMigrator;
 
 public sealed class FluentMigratorTasksTest
 {
+    private readonly TestDatabase _database;
+
+    public FluentMigratorTasksTest()
+    {
+        _database = new TestDatabase();
+    }
+
     [Fact]
     public void TestFluentMigratorMigrateUp()
     {
         FluentMigratorTasks.FluentMigratorMigrateUp(s => s
             .AddConfigureRunner(rb => rb
                 .AddSQLite()
-                .WithGlobalConnectionString("Data Source=temp;Mode=Memory;Cache=Shared")
+                .WithGlobalConnectionString(_database.ConnectionString)
                 .ScanIn(GetType().Assembly).For.Migrations()));
 
-        using var connection = new SqliteConnection("Data Source=temp;Mode=Memory;Cache=Shared");
-        connection.Open();
-        var command = connection.CreateCommand();
-        command.CommandText = "select count(*) from dummy";
-        var actual = (long) command.ExecuteScalar()!;
+        using var connection = _database.Open();
+#pragma warning disable CS8605
+        var actual = (long) connection.ExecuteScaler("select count(*) from dummy");
+#pragma warning restore CS8605
 
-        PAssert.IsTrue(() => actual == 0);
+        PAssert.IsTrue(() => actual == 0L);
     }
 }

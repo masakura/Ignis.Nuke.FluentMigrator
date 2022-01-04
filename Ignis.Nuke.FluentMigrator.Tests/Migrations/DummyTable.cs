@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentMigrator;
 
-namespace Ignis.Nuke.FluentMigrator;
+namespace Ignis.Nuke.FluentMigrator.Migrations;
 
 [Migration(20220104)]
 // ReSharper disable once UnusedType.Global
