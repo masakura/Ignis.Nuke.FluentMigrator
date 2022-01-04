@@ -1,10 +1,15 @@
 ﻿using Nuke.Common;
 using Nuke.Common.Tools.DotNet;
+using static Nuke.Common.ValueInjection.ValueInjectionUtility;
 
 namespace Builds;
 
 interface ICompile : ISolution, IGit
 {
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    Configuration Configuration => TryGetValue(() => Configuration) ??
+                                   (IsLocalBuild ? Configuration.Debug : Configuration.Release);
+
     Target Restore => _ => _
         .Executes(() =>
         {
