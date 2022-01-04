@@ -75,7 +75,8 @@
               "CodeQuality",
               "Compile",
               "Lint",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },
@@ -93,7 +94,8 @@
               "CodeQuality",
               "Compile",
               "Lint",
-              "Restore"
+              "Restore",
+              "Test"
             ]
           }
         },

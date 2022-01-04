@@ -5,7 +5,7 @@ using Nuke.Common.Execution;
 
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
-class Build : NukeBuild, IClean, ILint
+class Build : NukeBuild, IClean, ILint, ITest
 {
     public static int Main() => Execute<Build>(x => ((ICompile) x).Compile);
 }
