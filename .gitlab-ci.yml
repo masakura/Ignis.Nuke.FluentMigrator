@@ -1,0 +1,20 @@
+stages:
+  - check
+
+default: 
+  image: mcr.microsoft.com/dotnet/sdk:6.0
+  before_script:
+    - dotnet tool restore
+
+lint:
+  stage: check
+  script:
+    - dotnet nuke lint
+  artifacts:
+    name: lint
+    expose_as: lint
+    paths:
+      - output/reports/inspect-code.xml
+    reports:
+      codequality: [ ./output/reports/code-quality.json ]
+    when: always
