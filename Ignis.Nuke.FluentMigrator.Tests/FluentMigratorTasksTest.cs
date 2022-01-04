@@ -18,12 +18,11 @@ public sealed class FluentMigratorTasksTest
     public void TestFluentMigratorMigrateUp()
     {
         var assembly = GetType().Assembly.Location;
-        
+
         FluentMigratorTasks.FluentMigratorMigrateUp(s => s
+            .SetConnectionString(_database.ConnectionString)
             .AddAssembly(assembly)
-            .AddConfigureRunner(rb => rb
-                .AddSQLite()
-                .WithGlobalConnectionString(_database.ConnectionString)));
+            .AddConfigureRunner(rb => rb.AddSQLite()));
 
         using var connection = _database.Open();
 #pragma warning disable CS8605
