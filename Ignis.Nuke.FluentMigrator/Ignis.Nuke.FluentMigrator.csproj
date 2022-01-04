@@ -5,6 +5,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>10</LangVersion>
+        <Description>
+            Fluent Migrator Nuke tasks.
+        </Description>
     </PropertyGroup>
 
     <ItemGroup>
