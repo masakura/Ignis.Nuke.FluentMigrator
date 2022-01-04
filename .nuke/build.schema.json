@@ -46,6 +46,14 @@
           "type": "boolean",
           "description": "Disables displaying the NUKE logo"
         },
+        "NugetApiKey": {
+          "type": "string",
+          "description": "NuGet API Key. Default, read from the NUGET_API_KEY environment variable.NUGET_API_KEY"
+        },
+        "NugetSource": {
+          "type": "string",
+          "description": "Push NuGet source. Default is `nuget.org`"
+        },
         "Partition": {
           "type": "string",
           "description": "Partition to use on CI"
@@ -76,6 +84,7 @@
               "Compile",
               "Lint",
               "Pack",
+              "Push",
               "Restore",
               "Test"
             ]
@@ -96,6 +105,7 @@
               "Compile",
               "Lint",
               "Pack",
+              "Push",
               "Restore",
               "Test"
             ]

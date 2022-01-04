@@ -1,6 +1,7 @@
 stages:
   - build
   - check
+  - deploy
 
 variables:
   NUGET_PACKAGES: ${CI_PROJECT_DIR}/.cache/nuget/packages
@@ -64,3 +65,32 @@ test:
   stage: check
   script:
     - dotnet nuke test --skip compile
+
+pack:
+  extends: .job
+  stage: check
+  script:
+    - dotnet nuke pack --skip compile
+  artifacts:
+    name: nupkg
+    expose_as: nupkg
+    paths: [ ./output/nupkg ]
+
+push:nuget:
+  extends: .job
+  stage: deploy
+  script:
+    - dotnet nuke push --nuget-source nuget.org --skip pack
+  dependencies: [ pack ]
+  only: [ tags ]
+
+push:gitlab:
+  extends: .job
+  stage: deploy
+  script:
+    - dotnet nuget add source "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/nuget/index.json" --name gitlab --username gitlab-ci-token --password $CI_JOB_TOKEN --store-password-in-clear-text
+    - dotnet nuke push --nuget-source gitlab --skip pack
+  dependencies: [ pack ]
+  only:
+    - master
+    - merge_requests
