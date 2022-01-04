@@ -64,3 +64,6 @@ test:
   stage: check
   script:
     - dotnet nuke test --skip compile
+  artifacts: 
+    reports:
+      junit: [ ./output/reports/junit/*.xml ]
