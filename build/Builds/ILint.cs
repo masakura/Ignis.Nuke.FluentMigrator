@@ -26,6 +26,7 @@ interface ILint : ICompile
                 .SetProcessArgumentConfigurator(args => args.Add("--no-build")));
         });
 
+    // ReSharper disable once UnusedMember.Global
     Target CodeQuality => _ => _
         .TriggeredBy(Lint)
         .Executes(() =>
