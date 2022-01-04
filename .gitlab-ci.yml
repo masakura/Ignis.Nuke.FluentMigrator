@@ -58,3 +58,9 @@ lint:
     - key: inspect-code
       paths: [ ./cache/inspect-code ]
       when: always
+
+test:
+  extends: .job
+  stage: check
+  script:
+    - dotnet nuke test --skip compile
