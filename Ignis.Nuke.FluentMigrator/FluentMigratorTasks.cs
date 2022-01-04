@@ -6,6 +6,7 @@ namespace Ignis.Nuke.FluentMigrator;
 
 public static class FluentMigratorTasks
 {
+    // ReSharper disable once UnusedMethodReturnValue.Global
     public static IReadOnlyCollection<Output> FluentMigratorMigrateUp(
         Configure<FluentMigratorMigrateUpSettings> configure)
     {
@@ -13,38 +14,14 @@ public static class FluentMigratorTasks
         return FluentMigratorMigrateUp(settings);
     }
 
+    // ReSharper disable once MemberCanBePrivate.Global
     public static IReadOnlyCollection<Output> FluentMigratorMigrateUp(FluentMigratorMigrateUpSettings settings)
     {
-        var services = ConfigureServices(settings)
+        var services = settings.ConfigureServices()
             .BuildServiceProvider();
 
         services.GetRequiredService<IMigrationRunner>().MigrateUp();
 
         return new List<Output>().AsReadOnly();
-    }
-
-    private static IServiceCollection ConfigureServices(FluentMigratorMigrateUpSettings settings)
-    {
-        var services = new ServiceCollection()
-            .AddFluentMigratorCore();
-
-        foreach (var configure in settings.ConfigureRunners) services.ConfigureRunner(configure);
-        return services;
-    }
-}
-
-public sealed class FluentMigratorMigrateUpSettings
-{
-    public List<Action<IMigrationRunnerBuilder>> ConfigureRunners { get; } = new();
-}
-
-public static class FluentMigratorMigrateUpSettingsExtensions
-{
-    public static FluentMigratorMigrateUpSettings AddConfigureRunner(this FluentMigratorMigrateUpSettings settings,
-        Action<IMigrationRunnerBuilder> configure)
-    {
-        settings.ConfigureRunners.Add(configure);
-
-        return settings;
     }
 }
