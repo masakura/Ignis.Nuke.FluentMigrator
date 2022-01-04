@@ -18,7 +18,7 @@ Target MigrateUp => _ => _
         DotNetPublish(s => s
             .SetProjectFile(Solution.GetProject("Your.Migrations")
             .SetConfiguration(Configuration)
-            .SetOutput(OutputDirectory / "migrations" / "Your.Migrations.dll"));
+            .SetOutput(OutputDirectory / "migrations"));
         
         FluentMigratorMigrateUp(s => s
             .SetConnectionString("<your database connection string...>")

@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <LangVersion>10</LangVersion>
         <Description>
-            Fluent Migrator Nuke taks.
+            Fluent Migrator Nuke tasks.
         </Description>
     </PropertyGroup>
 
