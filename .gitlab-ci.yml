@@ -1,10 +1,23 @@
 stages:
+  - build
   - check
+
+variables:
+  NUGET_PACKAGES: ${CI_PROJECT_DIR}/.cache/nuget/packages
+  FF_USE_FASTZIP: 1
+
+.cache: &cache
+  key: nuget
+  paths: [ .cache/nuget ]
+  policy: pull
 
 default: 
   image: mcr.microsoft.com/dotnet/sdk:6.0
   before_script:
     - dotnet tool restore
+  cache:
+    - <<: *cache
+      policy: pull
 
 .job:
   only:
@@ -12,11 +25,26 @@ default:
     - tags
     - merge_requests
 
+compile:
+  extends: .job
+  stage: build
+  script:
+    - dotnet nuke compile
+  artifacts:
+    name: compiled
+    paths:
+      - ./**/bin
+      - ./**/obj
+      - ./.nuke
+  cache:
+    - <<: *cache
+      policy: pull-push
+
 lint:
   extends: .job
   stage: check
   script:
-    - dotnet nuke lint
+    - dotnet nuke lint --skip compile
   artifacts:
     name: lint
     expose_as: lint
@@ -25,3 +53,8 @@ lint:
     reports:
       codequality: [ ./output/reports/code-quality.json ]
     when: always
+  cache: 
+    - <<: *cache
+    - key: inspect-code
+      paths: [ ./cache/inspect-code ]
+      when: always
