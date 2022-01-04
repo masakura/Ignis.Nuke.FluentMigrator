@@ -29,6 +29,7 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// </summary>
     /// <param name="settings"></param>
     /// <param name="assembly"></param>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static FluentMigratorMigrateUpSettings AddAssembly(this FluentMigratorMigrateUpSettings settings,
         Assembly assembly)
     {
@@ -41,6 +42,7 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// <param name="settings"></param>
     /// <param name="assemblies"></param>
     /// <returns></returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static FluentMigratorMigrateUpSettings AddAssemblies(this FluentMigratorMigrateUpSettings settings,
         params Assembly[] assemblies)
     {
@@ -53,6 +55,7 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// <param name="settings"></param>
     /// <param name="assemblies"></param>
     /// <returns></returns>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static FluentMigratorMigrateUpSettings AddAssemblies(this FluentMigratorMigrateUpSettings settings,
         IEnumerable<Assembly> assemblies)
     {
