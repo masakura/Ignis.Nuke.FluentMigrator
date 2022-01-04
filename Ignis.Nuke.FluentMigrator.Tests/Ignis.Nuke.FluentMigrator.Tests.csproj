@@ -22,4 +22,8 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference Include="..\Ignis.Nuke.FluentMigrator\Ignis.Nuke.FluentMigrator.csproj" />
+    </ItemGroup>
+
 </Project>

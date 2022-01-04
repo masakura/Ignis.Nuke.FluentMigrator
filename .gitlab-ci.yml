@@ -11,7 +11,7 @@ variables:
   paths: [ .cache/nuget ]
   policy: pull
 
-default: 
+default:
   image: mcr.microsoft.com/dotnet/sdk:6.0
   before_script:
     - dotnet tool restore
@@ -53,7 +53,7 @@ lint:
     reports:
       codequality: [ ./output/reports/code-quality.json ]
     when: always
-  cache: 
+  cache:
     - <<: *cache
     - key: inspect-code
       paths: [ ./cache/inspect-code ]
