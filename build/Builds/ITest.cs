@@ -7,9 +7,8 @@ namespace Builds;
 
 interface ITest : ICompile
 {
+    private AbsolutePath JUnitFile => OutputDirectory / "reports" / "junit" / "{assembly}-test-result.xml";
 
-    private AbsolutePath JUnitFile => OutputDirectory / "reports" / "junit"  / "{assembly}-test-result.xml"; 
-    
     // ReSharper disable once UnusedMember.Global
     Target Test => _ => _
         .DependsOn(Compile)
