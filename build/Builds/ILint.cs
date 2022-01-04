@@ -1,4 +1,8 @@
-﻿using Nuke.Common;
+﻿using Ignis.ReSharper.Reporter.InspectCode.Convert.CodeQuality;
+using Ignis.ReSharper.Reporter.InspectCode.Convert.Summary;
+using Ignis.ReSharper.Reporter.InspectCode.Validations.SeverityLevel;
+using Ignis.ReSharper.Reporter.Nuke;
+using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.ReSharper;
@@ -9,8 +13,8 @@ namespace Builds;
 interface ILint : ICompile
 {
     private AbsolutePath InspectCodeFile => OutputDirectory / "reports" / "inspect-code.xml";
+    private AbsolutePath CodeQualityFile => OutputDirectory / "reports" / "code-quality.json";
 
-    // ReSharper disable once UnusedMember.Global
     Target Lint => _ => _
         .Executes(() =>
         {
@@ -20,5 +24,16 @@ interface ILint : ICompile
                 .SetCachesHome(CacheDirectory / "inspect-code")
                 .AddProperty("Configuration", Configuration)
                 .SetProcessArgumentConfigurator(args => args.Add("--no-build")));
+        });
+
+    Target CodeQuality => _ => _
+        .TriggeredBy(Lint)
+        .Executes(() =>
+        {
+            ReSharperReporterTasks.ReSharperReport(s => s
+                .SetInput(InspectCodeFile)
+                .SetSeverity(EnsureSeverityLevel.All)
+                .AddExport<CodeQualityConverter>(CodeQualityFile)
+                .AddExport<SummaryConverter>());
         });
 }
