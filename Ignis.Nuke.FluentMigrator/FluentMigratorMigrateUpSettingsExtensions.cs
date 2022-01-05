@@ -1,4 +1,3 @@
-using System.Reflection;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Processors;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,20 +19,9 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// </summary>
     /// <param name="settings"></param>
     /// <param name="assembly"></param>
+    /// <returns></returns>
     public static FluentMigratorMigrateUpSettings AddAssembly(this FluentMigratorMigrateUpSettings settings,
         string assembly)
-    {
-        return settings.AddAssembly(Assembly.LoadFrom(assembly));
-    }
-
-    /// <summary>
-    ///     Add an assembly with migration.
-    /// </summary>
-    /// <param name="settings"></param>
-    /// <param name="assembly"></param>
-    // ReSharper disable once MemberCanBePrivate.Global
-    public static FluentMigratorMigrateUpSettings AddAssembly(this FluentMigratorMigrateUpSettings settings,
-        Assembly assembly)
     {
         return settings.AddAssemblies(assembly);
     }
@@ -46,9 +34,9 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// <returns></returns>
     // ReSharper disable once MemberCanBePrivate.Global
     public static FluentMigratorMigrateUpSettings AddAssemblies(this FluentMigratorMigrateUpSettings settings,
-        params Assembly[] assemblies)
+        params string[] assemblies)
     {
-        return settings.AddAssemblies((IEnumerable<Assembly>) assemblies);
+        return settings.AddAssemblies((IEnumerable<string>) assemblies);
     }
 
     /// <summary>
@@ -59,10 +47,9 @@ public static class FluentMigratorMigrateUpSettingsExtensions
     /// <returns></returns>
     // ReSharper disable once MemberCanBePrivate.Global
     public static FluentMigratorMigrateUpSettings AddAssemblies(this FluentMigratorMigrateUpSettings settings,
-        IEnumerable<Assembly> assemblies)
+        IEnumerable<string> assemblies)
     {
-        foreach (var assembly in assemblies) settings.Assemblies.Add(assembly);
-
+        settings.Assemblies.AddRange(assemblies);
         return settings;
     }
 
