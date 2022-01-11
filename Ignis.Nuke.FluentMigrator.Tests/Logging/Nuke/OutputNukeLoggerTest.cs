@@ -3,7 +3,7 @@ using Nuke.Common.Tooling;
 using PowerAssert;
 using Xunit;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.Nuke;
 
 public sealed class OutputNukeLoggerTest
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using Nuke.Common.Tooling;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.Nuke;
 
 internal sealed class AggregateNukeLogger : INukeLogger
 {

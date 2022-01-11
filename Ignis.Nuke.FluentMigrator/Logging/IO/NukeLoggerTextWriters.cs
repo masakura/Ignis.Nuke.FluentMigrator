@@ -1,10 +1,10 @@
-﻿using Nuke.Common.Tooling;
+﻿using Ignis.Nuke.FluentMigrator.Logging.Nuke;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.IO;
 
-internal sealed class NukeLoggerWriters : IDisposable
+internal sealed class NukeLoggerTextWriters : IDisposable
 {
-    public NukeLoggerWriters(INukeLogger logger)
+    public NukeLoggerTextWriters(INukeLogger logger)
     {
         Std = NukeLoggerTextWriter.Std(logger.Logger);
         Err = NukeLoggerTextWriter.Err(logger.Logger);

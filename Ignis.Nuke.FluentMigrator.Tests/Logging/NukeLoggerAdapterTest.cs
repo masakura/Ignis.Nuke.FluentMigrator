@@ -10,13 +10,13 @@ using Xunit.Abstractions;
 
 namespace Ignis.Nuke.FluentMigrator.Logging;
 
-public sealed class LoggerAdapterTest : IDisposable
+public sealed class NukeLoggerAdapterTest : IDisposable
 {
     private readonly LogRecorder _recorder;
     private readonly ServiceProvider _services;
     private readonly ILogger _target;
 
-    public LoggerAdapterTest(ITestOutputHelper output)
+    public NukeLoggerAdapterTest(ITestOutputHelper output)
     {
         _recorder = new LogRecorder();
         var logger = new AggregateNukeLogger(_recorder, new XUnitNukeLogger(output));

@@ -1,6 +1,6 @@
 ﻿using Nuke.Common.Tooling;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.Nuke;
 
 internal sealed class OutputNukeLogger : INukeLogger
 {

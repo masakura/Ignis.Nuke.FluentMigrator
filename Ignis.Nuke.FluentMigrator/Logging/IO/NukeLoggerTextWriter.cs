@@ -1,7 +1,8 @@
 ﻿using System.Text;
+using Ignis.Nuke.FluentMigrator.Text;
 using Nuke.Common.Tooling;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.IO;
 
 internal sealed class NukeLoggerTextWriter : TextWriter
 {

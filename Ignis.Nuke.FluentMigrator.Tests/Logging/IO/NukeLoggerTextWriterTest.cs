@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Ignis.Nuke.FluentMigrator.Logging.IO;
 using Ignis.Nuke.FluentMigrator.Logging.Nuke;
 using PowerAssert;
 using Xunit;

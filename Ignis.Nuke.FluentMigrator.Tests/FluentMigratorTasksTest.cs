@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Dapper;
 using FluentMigrator.Runner;
 using Ignis.Nuke.FluentMigrator.Data;
-using Ignis.Nuke.FluentMigrator.Logging;
 using Ignis.Nuke.FluentMigrator.Logging.Nuke;
 using Ignis.Nuke.FluentMigrator.Logging.XUnit;
 using Nuke.Common.Tooling;
@@ -72,7 +71,7 @@ public sealed class FluentMigratorTasksTest : IDisposable
     public void TestLoggingOutputs()
     {
         var actual = MigrateUp().AllText();
-        
+
         PAssert.IsTrue(() => actual.Contains("DummyTable migrated"));
     }
 
@@ -80,7 +79,7 @@ public sealed class FluentMigratorTasksTest : IDisposable
     {
         return FluentMigratorTasks.FluentMigratorMigrateUp(s => s
             .SetConnectionString(_database.ConnectionString)
-            .AddAssemblies(_assembly)
+            .AddAssembly(_assembly)
             .AddConfigureRunner(rb => rb.AddSQLite()));
     }
 }

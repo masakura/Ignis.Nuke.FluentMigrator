@@ -1,4 +1,5 @@
-﻿using Nuke.Common.Tooling;
+﻿using Ignis.Nuke.FluentMigrator.Logging.Nuke;
+using Nuke.Common.Tooling;
 using Xunit.Abstractions;
 
 namespace Ignis.Nuke.FluentMigrator.Logging.XUnit;

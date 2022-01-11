@@ -1,5 +1,6 @@
 ﻿using FluentMigrator.Runner;
 using Ignis.Nuke.FluentMigrator.Logging;
+using Ignis.Nuke.FluentMigrator.Logging.Nuke;
 using Microsoft.Extensions.DependencyInjection;
 using Nuke.Common.Tooling;
 
