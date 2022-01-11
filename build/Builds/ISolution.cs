@@ -1,7 +1,6 @@
 ﻿using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
-using static Nuke.Common.ValueInjection.ValueInjectionUtility;
 
 namespace Builds;
 

@@ -1,9 +1,9 @@
-﻿using Nuke.Common.Tools.GitVersion;
-using Nuke.Common.ValueInjection;
+﻿using Nuke.Common;
+using Nuke.Common.Tools.GitVersion;
 
 namespace Builds;
 
-interface IGit
+interface IGit : INukeBuild
 {
-    [GitVersion] GitVersion GitVersion => ValueInjectionUtility.TryGetValue(() => GitVersion);
+    [GitVersion] GitVersion GitVersion => TryGetValue(() => GitVersion);
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using Nuke.Common;
 using Nuke.Common.Tools.DotNet;
-using static Nuke.Common.ValueInjection.ValueInjectionUtility;
 
 namespace Builds;
 
@@ -21,7 +20,6 @@ interface IPush : IPack
         .DependsOn(Pack)
         .Executes(() =>
         {
-            Logger.Info(NugetApiKey);
             DotNetTasks.DotNetNuGetPush(s => s
                 .SetTargetPath(NuPkgDirectory / "*.nupkg")
                 .SetApiKey(NugetApiKey)
