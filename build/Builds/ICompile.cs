@@ -1,6 +1,5 @@
 ﻿using Nuke.Common;
 using Nuke.Common.Tools.DotNet;
-using static Nuke.Common.ValueInjection.ValueInjectionUtility;
 
 namespace Builds;
 
