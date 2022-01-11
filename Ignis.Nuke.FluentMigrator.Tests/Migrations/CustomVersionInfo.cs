@@ -9,7 +9,7 @@ public sealed class CustomVersionInfo : IVersionTableMetaData
 #pragma warning disable CS0618
     private readonly IVersionTableMetaData _default = new DefaultVersionTableMetaData();
 #pragma warning restore CS0618
-    
+
     public object? ApplicationContext { get; set; } = null;
 
     public bool OwnsSchema => _default.OwnsSchema;

@@ -20,7 +20,7 @@ interface IPack : ICompile
                     "Ignis.Nuke.FluentMigrator"
                 }
                 .Select(project => Solution.GetProject(project));
-            
+
             DotNetPack(s => s
                 .SetConfiguration(Configuration)
                 .SetOutputDirectory(NuPkgDirectory)

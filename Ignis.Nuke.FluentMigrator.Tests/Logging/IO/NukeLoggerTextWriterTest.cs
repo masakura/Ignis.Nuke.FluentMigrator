@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
-using Ignis.Nuke.FluentMigrator.Logging.IO;
 using Ignis.Nuke.FluentMigrator.Logging.Nuke;
 using PowerAssert;
 using Xunit;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.IO;
 
 public sealed class NukeLoggerTextWriterTest
 {

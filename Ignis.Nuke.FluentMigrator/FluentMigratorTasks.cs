@@ -23,7 +23,7 @@ public static class FluentMigratorTasks
     {
         var outputs = new OutputNukeLogger();
         var logger = new AggregateNukeLogger(outputs, new NukeLogger(Logger));
-        
+
         var services = settings.ConfigureServices()
             .AddLogging(logging => logging.AddNukeLogger(logger))
             .BuildServiceProvider();
