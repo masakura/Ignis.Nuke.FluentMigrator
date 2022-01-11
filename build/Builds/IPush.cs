@@ -25,5 +25,4 @@ interface IPush : IPack
                 .SetApiKey(NugetApiKey)
                 .SetSource(NugetSource));
         });
-
 }
