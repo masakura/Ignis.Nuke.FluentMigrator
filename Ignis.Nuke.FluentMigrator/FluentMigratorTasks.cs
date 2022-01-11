@@ -6,6 +6,8 @@ namespace Ignis.Nuke.FluentMigrator;
 
 public static class FluentMigratorTasks
 {
+    public static Action<OutputType, string> Logger { get; set; } = ProcessTasks.DefaultLogger;
+
     // ReSharper disable once UnusedMethodReturnValue.Global
     public static IReadOnlyCollection<Output> FluentMigratorMigrateUp(
         Configure<FluentMigratorMigrateUpSettings> configure)

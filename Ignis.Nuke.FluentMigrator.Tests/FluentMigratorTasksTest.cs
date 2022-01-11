@@ -1,20 +1,36 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using FluentMigrator.Runner;
 using Ignis.Nuke.FluentMigrator.Data;
+using Ignis.Nuke.FluentMigrator.Logging;
+using Nuke.Common.Tooling;
 using PowerAssert;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Ignis.Nuke.FluentMigrator;
 
-public sealed class FluentMigratorTasksTest
+public sealed class FluentMigratorTasksTest : IDisposable
 {
     private readonly string _assembly;
     private readonly TestDatabase _database;
+    private readonly Action<OutputType, string> _originalLogger;
+    private readonly LogRecorder _recorder;
 
-    public FluentMigratorTasksTest()
+    public FluentMigratorTasksTest(ITestOutputHelper output)
     {
         _database = new TestDatabase();
         _assembly = GetType().Assembly.Location;
+        _recorder = new LogRecorder();
+        var logger = new AggregateNukeLogger(_recorder, new XUnitNukeLogger(output));
+
+        _originalLogger = FluentMigratorTasks.Logger;
+        FluentMigratorTasks.Logger = logger.Logger;
+    }
+
+    public void Dispose()
+    {
+        FluentMigratorTasks.Logger = _originalLogger;
     }
 
     [Fact]
@@ -43,5 +59,18 @@ public sealed class FluentMigratorTasksTest
         var actual = connection.QueryFirst<int>("select count(*) from CustomVersionInfo");
 
         PAssert.IsTrue(() => actual == 1);
+    }
+
+    [Fact]
+    public void TestLoggingConsole()
+    {
+        FluentMigratorTasks.FluentMigratorMigrateUp(s => s
+            .SetConnectionString(_database.ConnectionString)
+            .AddAssemblies(_assembly)
+            .AddConfigureRunner(rb => rb.AddSQLite()));
+
+        var actual = _recorder.Output().Standard;
+
+        PAssert.IsTrue(() => actual.Contains("DummyTable migrated"));
     }
 }
