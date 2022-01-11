@@ -7,7 +7,7 @@ internal static class LoggerExtensions
 {
     public static void Log(this ILogger logger, LogLevel logLevel, string message)
     {
-        logger.Log(logLevel, 
+        logger.Log(logLevel,
             new EventId(0, "FluentMigrator.Runner"),
             new FormattedLogValues(message), null,
             (values, _) => values.ToString());

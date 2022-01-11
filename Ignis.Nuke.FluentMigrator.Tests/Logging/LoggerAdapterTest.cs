@@ -1,5 +1,7 @@
 ﻿using System;
 using FluentMigrator.Runner;
+using Ignis.Nuke.FluentMigrator.Logging.Nuke;
+using Ignis.Nuke.FluentMigrator.Logging.XUnit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PowerAssert;
@@ -21,7 +23,7 @@ public sealed class LoggerAdapterTest : IDisposable
 
         _services = new ServiceCollection()
             .Configure<FluentMigratorLoggerOptions>(_ => { })
-            .AddLogging(logging => logging.AddNukeLogger(logger.Logger))
+            .AddLogging(logging => logging.AddNukeLogger(logger))
             .BuildServiceProvider();
 
         _target = _services.GetRequiredService<ILoggerProvider>().CreateLogger("unused category");

@@ -4,5 +4,5 @@ namespace Ignis.Nuke.FluentMigrator.Logging;
 
 internal interface INukeLogger
 {
-    void Logger(OutputType type, string message);
+    void Logger(OutputType type, string text);
 }

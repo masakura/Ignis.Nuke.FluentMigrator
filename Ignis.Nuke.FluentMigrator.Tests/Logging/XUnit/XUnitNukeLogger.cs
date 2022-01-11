@@ -1,7 +1,7 @@
 ﻿using Nuke.Common.Tooling;
 using Xunit.Abstractions;
 
-namespace Ignis.Nuke.FluentMigrator.Logging;
+namespace Ignis.Nuke.FluentMigrator.Logging.XUnit;
 
 internal sealed class XUnitNukeLogger : INukeLogger
 {

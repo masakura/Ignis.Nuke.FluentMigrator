@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Dapper;
 using FluentMigrator.Runner;
 using Ignis.Nuke.FluentMigrator.Data;
 using Ignis.Nuke.FluentMigrator.Logging;
+using Ignis.Nuke.FluentMigrator.Logging.Nuke;
+using Ignis.Nuke.FluentMigrator.Logging.XUnit;
 using Nuke.Common.Tooling;
 using PowerAssert;
 using Xunit;
@@ -36,10 +39,7 @@ public sealed class FluentMigratorTasksTest : IDisposable
     [Fact]
     public void TestFluentMigratorMigrateUp()
     {
-        FluentMigratorTasks.FluentMigratorMigrateUp(s => s
-            .SetConnectionString(_database.ConnectionString)
-            .AddAssembly(_assembly)
-            .AddConfigureRunner(rb => rb.AddSQLite()));
+        MigrateUp();
 
         using var connection = _database.Open();
         var actual = connection.QueryFirst<int>("select count(*) from dummy");
@@ -50,10 +50,7 @@ public sealed class FluentMigratorTasksTest : IDisposable
     [Fact]
     public void TestCustomMetadata()
     {
-        FluentMigratorTasks.FluentMigratorMigrateUp(s => s
-            .SetConnectionString(_database.ConnectionString)
-            .AddAssemblies(_assembly)
-            .AddConfigureRunner(rb => rb.AddSQLite()));
+        MigrateUp();
 
         using var connection = _database.Open();
         var actual = connection.QueryFirst<int>("select count(*) from CustomVersionInfo");
@@ -64,13 +61,26 @@ public sealed class FluentMigratorTasksTest : IDisposable
     [Fact]
     public void TestLoggingConsole()
     {
-        FluentMigratorTasks.FluentMigratorMigrateUp(s => s
-            .SetConnectionString(_database.ConnectionString)
-            .AddAssemblies(_assembly)
-            .AddConfigureRunner(rb => rb.AddSQLite()));
+        MigrateUp();
 
         var actual = _recorder.Output().Standard;
 
         PAssert.IsTrue(() => actual.Contains("DummyTable migrated"));
+    }
+
+    [Fact]
+    public void TestLoggingOutputs()
+    {
+        var actual = MigrateUp().AllText();
+        
+        PAssert.IsTrue(() => actual.Contains("DummyTable migrated"));
+    }
+
+    private IReadOnlyCollection<Output> MigrateUp()
+    {
+        return FluentMigratorTasks.FluentMigratorMigrateUp(s => s
+            .SetConnectionString(_database.ConnectionString)
+            .AddAssemblies(_assembly)
+            .AddConfigureRunner(rb => rb.AddSQLite()));
     }
 }

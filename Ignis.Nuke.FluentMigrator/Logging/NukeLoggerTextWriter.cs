@@ -5,27 +5,24 @@ namespace Ignis.Nuke.FluentMigrator.Logging;
 
 internal sealed class NukeLoggerTextWriter : TextWriter
 {
-    private readonly StringBuilder _builder = new();
+    private readonly TextLine _line;
     private readonly Action<string> _logger;
 
     private NukeLoggerTextWriter(Action<string> logger)
     {
         _logger = logger;
+        _line = new TextLine(NewLine);
     }
 
     public override Encoding Encoding { get; } = Encoding.UTF8;
 
     public override void Write(char value)
     {
-        _builder.Append(value);
+        _line.Append(value);
 
-        if (_builder.ToString().EndsWith(NewLine))
-        {
-                var message = _builder.ToString();
-                message = message[..^NewLine.Length];
-                _logger(message);
-                _builder.Clear();
-        }
+        if (!_line.HasNewLine()) return;
+
+        _logger(_line.ReadLine());
     }
 
     public override void Flush()

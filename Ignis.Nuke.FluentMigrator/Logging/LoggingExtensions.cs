@@ -7,7 +7,7 @@ namespace Ignis.Nuke.FluentMigrator.Logging;
 internal static class LoggingExtensions
 {
     // ReSharper disable once UnusedMethodReturnValue.Global
-    public static ILoggingBuilder AddNukeLogger(this ILoggingBuilder logging, Action<OutputType, string> nukeLogger)
+    public static ILoggingBuilder AddNukeLogger(this ILoggingBuilder logging, INukeLogger nukeLogger)
     {
         logging.Services
             .AddSingleton(new NukeLoggerWriters(nukeLogger))

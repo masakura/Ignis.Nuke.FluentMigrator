@@ -4,10 +4,10 @@ namespace Ignis.Nuke.FluentMigrator.Logging;
 
 internal sealed class NukeLoggerWriters : IDisposable
 {
-    public NukeLoggerWriters(Action<OutputType, string> logger)
+    public NukeLoggerWriters(INukeLogger logger)
     {
-        Std = NukeLoggerTextWriter.Std(logger);
-        Err = NukeLoggerTextWriter.Err(logger);
+        Std = NukeLoggerTextWriter.Std(logger.Logger);
+        Err = NukeLoggerTextWriter.Err(logger.Logger);
     }
 
     public TextWriter Std { get; }
